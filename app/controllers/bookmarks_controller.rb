@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   def index
-    @hashtags = Hashtag.includes(:bookmarks).all
+    @hashtags = Hashtag.all
+    @bookmarks = Bookmark.includes(:hashtags).all
   end
 end

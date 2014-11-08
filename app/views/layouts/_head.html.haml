@@ -6,7 +6,7 @@
 
   .pull-right.user-info
     - if current_user
-      = link_to "My Bookmarks", "#"
+      = link_to "My Bookmarks", current_user
       = link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do
         %span.glyphicon.glyphicon-log-out
       
