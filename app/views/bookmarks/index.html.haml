@@ -1,0 +1,8 @@
+- @hashtags.each do |tag|
+  %h3 
+    = "##{tag.text}"
+  %ul
+  - tag.bookmarks.each do |link|
+    %li 
+      = link_to link.url, link.url
+    
