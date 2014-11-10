@@ -8,7 +8,7 @@ describe EmailProcessor do
   it "receives an incoming email" do
     processor = EmailProcessor.new(@email)
     received_email = processor.email
-    expect( received_email ).to eq(@email)
+    expect(assign(:email)).to eq(@email)
   end
 
   it "can access email attributes" do

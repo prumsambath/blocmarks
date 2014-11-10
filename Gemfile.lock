@@ -61,6 +61,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    embedly (1.9.1)
+      json
+      oauth
+      querystring
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
@@ -174,6 +178,7 @@ GEM
     net-ssh (2.9.1)
     nokogiri (1.6.4)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
     orm_adapter (0.5.0)
     pg (0.17.1)
     pry (0.10.1)
@@ -182,6 +187,7 @@ GEM
       slop (~> 3.4)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
+    querystring (0.1.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -289,6 +295,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   devise
+  embedly
   erb2haml
   factory_girl_rails (~> 4.0)
   faker

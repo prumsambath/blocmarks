@@ -10,16 +10,15 @@ class EmailProcessor
     if user
       bookmark = user.bookmarks.create(url: @email.body)
 
-      hashtags = @email.subject.scan(/HASHTAG_PATTERN/).flatten
+      hashtags = scan_hashtag(@email)
       hashtags.each do |text|
         bookmark.hashtags.create(text: text)
       end
     end
   end
 
-  # temp attr_reader for testing
-  def email
-    @email
+  def scan_hashtag(email)
+    email.subject.scan(HASHTAG_PATTERN).flatten
   end
 end
 

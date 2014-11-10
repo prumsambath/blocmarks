@@ -4,5 +4,5 @@
   %ul
   - tag.bookmarks.each do |link|
     %li 
-      = link_to link.url, link.url
+      = embedly_api.oembed(url: link.url).first.html
     

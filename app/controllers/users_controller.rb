@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @bookmarks = @user.bookmarks.includes(:hashtags).visible_to(current_user)
+    @bookmarks = @user.bookmarks
+
+    # @hashtags = @bookmarks.hashtags # error
   end
 end

@@ -14,12 +14,16 @@ group :production do
 end
 
 group :test do
-  gem 'rspec-rails', '~>3.1.0'
+  gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails', '~> 4.0'
   gem 'guard-rspec'
   gem 'spork-rails'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~>3.1.0'
+  gem 'factory_girl_rails', '~> 4.0'
 end
 
 gem 'bootstrap-sass', '~>3.1.1'
@@ -31,7 +35,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise'
-gem 'faker'
 gem 'figaro'
 gem 'pundit'
 gem 'carrierwave'
@@ -41,4 +44,5 @@ gem 'kaminari'
 gem 'haml-rails'
 gem 'griddler', '~> 1.0.0'
 gem 'griddler-mailgun', '~> 1.0.1'
+gem 'embedly'
 
