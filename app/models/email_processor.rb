@@ -1,4 +1,5 @@
 class EmailProcessor
+  SIMPLE_URL_PATTERN = /https?:\/\/[\S]+/
   HASHTAG_PATTERN = /(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i
 
   def initialize(email)
@@ -6,22 +7,28 @@ class EmailProcessor
   end
 
   def process
-    user = User.find_by(email: @email.from)
+    user = User.find_by(email: @email[:from])
     if user
-      bookmark = user.bookmarks.create(url: @email.body)
+      bookmarks = scan_url(@email[:body])
+      bookmarks.each do |bookmark|
+        user_bookmark = user.bookmarks.build(url: bookmark)
 
-      hashtags = scan_hashtag(@email)
-      hashtags.each do |text|
-        bookmark.hashtags.create(text: text)
+        hashtags = scan_hashtag(@email[:subject])
+        hashtags.each do |text|
+          user_bookmark.hashtags.build(text: text)
+        end
       end
+
+      user.save
     end
   end
 
-  def scan_hashtag(email)
-    email.subject.scan(HASHTAG_PATTERN).flatten
-  end
+  private
+    def scan_hashtag(subject)
+      subject.scan(HASHTAG_PATTERN).flatten
+    end
+
+    def scan_url(body)
+      body.scan(SIMPLE_URL_PATTERN).flatten
+    end
 end
-
-
-# TODO how to handle email from users who not yet signed up
-# TODO test the email object whose data populated properly
