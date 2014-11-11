@@ -4,5 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :bookmarks
+  has_many :bookmarks, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+
+  def liked(bookmark)
+    favorites.where(bookmark_id: bookmark.id).first
+  end
 end

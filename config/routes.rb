@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   mount_griddler
 
   resources :users, only: [:show]
-  resources :bookmarks, only: [:index, :show]
+  resources :bookmarks, only: [:index, :show] do
+    resources :favorites, only: [:create, :destroy]
+  end
   resources :hashtags, only: [:show]
 
   root to: "welcome#index"

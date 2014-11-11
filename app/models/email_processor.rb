@@ -9,13 +9,14 @@ class EmailProcessor
   def process
     user = User.find_by(email: @email[:from])
     if user
-      bookmarks = scan_url(@email[:body])
-      bookmarks.each do |bookmark|
-        user_bookmark = user.bookmarks.build(url: bookmark)
+      links = scan_url(@email[:body])
+      links.each do |link|
+        bookmark = Bookmark.create(url: link)
+        user.favorites.build(bookmark: bookmark)
 
         hashtags = scan_hashtag(@email[:subject])
         hashtags.each do |text|
-          user_bookmark.hashtags.build(text: text)
+          bookmark.hashtags.create(text: text)
         end
       end
 

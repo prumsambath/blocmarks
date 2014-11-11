@@ -1,0 +1,6 @@
+- if liked = current_user.liked(bookmark)
+  = link_to [bookmark, liked], method: :delete do
+    %i.glyphicon.glyphicon-thumbs-down
+- else
+  = link_to [bookmark, Favorite.new], method: :post do
+    %i.glyphicon.glyphicon-thumbs-up

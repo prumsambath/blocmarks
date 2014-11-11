@@ -4,4 +4,5 @@
   - tag.bookmarks.each do |link|
     %li 
       = link_to link.url, link.url
+      = render partial: 'favorites/favorite', locals: { bookmark: link }
     

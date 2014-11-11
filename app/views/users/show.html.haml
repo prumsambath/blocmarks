@@ -1,4 +1,4 @@
 %ul
-- @bookmarks.each do |bookmark|
-  %li
-  = link_to bookmark.url, bookmark.url
+  - @likes.each do |like|
+    %li
+      = link_to like.bookmark.url, like.bookmark.url
