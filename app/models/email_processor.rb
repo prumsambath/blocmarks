@@ -7,6 +7,12 @@ class EmailProcessor
   end
 
   def process
+    puts "Class: #{@email.class}"
+    puts "inspect: @email.inspect"
+    puts "sender: @email.from[:email]"
+    puts "subject: @email.subject"
+    puts "body: @email.body"
+
     user = User.find_by(email: @email[:from])
     if user
       links = scan_url(@email[:body])
