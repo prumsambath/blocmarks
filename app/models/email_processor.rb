@@ -8,19 +8,19 @@ class EmailProcessor
 
   def process
     puts "Class: #{@email.class}"
-    puts "inspect: @email.inspect"
-    puts "sender: @email.from[:email]"
-    puts "subject: @email.subject"
-    puts "body: @email.body"
+    puts "inspect: #{@email.inspect}"
+    puts "sender: #{@email.from[:email]}"
+    puts "subject: #{@email.subject}"
+    puts "body: #{@email.body}"
 
-    user = User.find_by(email: @email[:from])
+    user = User.find_by(email: @email.from[:email]])
     if user
-      links = scan_url(@email[:body])
+      links = scan_url(@email.body)
       links.each do |link|
         bookmark = Bookmark.create(url: link)
         user.favorites.build(bookmark: bookmark)
 
-        hashtags = scan_hashtag(@email[:subject])
+        hashtags = scan_hashtag(@email.subject)
         hashtags.each do |text|
           bookmark.hashtags.create(text: text)
         end
