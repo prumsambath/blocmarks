@@ -13,7 +13,7 @@ class EmailProcessor
     puts "subject: #{@email.subject}"
     puts "body: #{@email.body}"
 
-    user = User.find_by(email: @email.from[:email]])
+    user = User.find_by(email: @email.from[:email])
     if user
       links = scan_url(@email.body)
       links.each do |link|
