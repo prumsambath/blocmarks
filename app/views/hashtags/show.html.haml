@@ -1,0 +1,6 @@
+%h3
+  = @hashtag.text
+%ul
+- @hashtag.bookmarks.each do |bookmark|
+  %li
+  = link_to bookmark.url, bookmark.url

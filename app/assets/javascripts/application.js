@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// $(document).ready(function() {
+//   $('li a').embedly({ 
+//     key: '8019cd93c4ad4e8b9aaf1a26f89b5b8a',
+//     query: { maxwidth:150, maxheight:90 }
+//   });
+// });

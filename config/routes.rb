@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show]
   resources :bookmarks, only: [:index, :show]
+  resources :hashtags, only: [:show]
 
   root to: "welcome#index"
 end

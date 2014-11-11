@@ -1,4 +1,4 @@
 %ul
 - @bookmarks.each do |bookmark|
   %li
-  = bookmark.url
+  = link_to bookmark.url, bookmark.url

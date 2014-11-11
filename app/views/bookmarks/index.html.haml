@@ -1,8 +1,7 @@
 - @hashtags.each do |tag|
-  %h3 
-    = "##{tag.text}"
+  = link_to "##{tag.text}", tag
   %ul
   - tag.bookmarks.each do |link|
     %li 
-      = embedly_api.oembed(url: link.url).first.html
+      = link_to link.url, link.url
     
