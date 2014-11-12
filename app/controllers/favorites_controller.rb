@@ -1,23 +1,48 @@
 class FavoritesController < ApplicationController
   def create
-    @bookmark = Bookmark.find(params[:bookmark_id])
+    get_bookmark
     @liked = current_user.favorites.build(bookmark: @bookmark)
+
     if @liked.save
-      flash[:notice] = "#{@bookmark.url} has been saved to your bookmark list."
-    else
-      flash[:error] = "There is an error adding to your bookmark list."
+      respond_to do |format|
+        message = "#{@bookmark.url} has been saved to your bookmark list."
+
+        format.html do
+          flash[:notice] = message
+          redirect_to bookmarks_path
+        end
+
+        format.js do
+          flash.now[:notice] = message
+          render action: 'show_favorite_button'
+        end
+      end
     end
-    redirect_to bookmarks_path
   end
 
   def destroy
-    @bookmark = Bookmark.find(params[:bookmark_id])
+    get_bookmark
     liked = current_user.favorites.find(params[:id])
-    if liked.destroy
-      flash[:notice] = "#{@bookmark.url} has been removed to your bookmark list."
-    else
-      flash[:error] = "There is an error removing to your bookmark list."
+
+    liked.destroy
+    respond_to do |format|
+      message =  "#{@bookmark.url} has been removed from your bookmark list."
+
+      format.html do
+        flash[:notice] = message
+        redirect_to request.referer
+      end
+
+      format.js do
+        flash.now[:notice] = message
+        render action: 'show_favorite_button'
+      end
     end
-    redirect_to bookmarks_path
+  end
+
+  private
+
+  def get_bookmark
+    @bookmark = Bookmark.find(params[:bookmark_id])
   end
 end
