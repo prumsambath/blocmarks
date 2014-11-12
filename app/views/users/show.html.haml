@@ -1,4 +1,28 @@
-%ul
+%h2
+  My Blocmarks
+.row.col-md-12
+  - @bookmarks.each do |bookmark|
+    .media.media-body
+      %h5.media-heading
+        = link_to bookmark.url, bookmark.url
+        = link_to 'Remove', bookmark, method: :delete, class: 'btn btn-default btn-xs'
+      %small
+        added
+        = time_ago_in_words(bookmark.created_at)
+        ago
+      %hr
+%h2
+  Liked Blocmarks
+.row.col-md-12
   - @likes.each do |like|
-    %li
-      = link_to like.bookmark.url, like.bookmark.url
+    .media.media-body
+      %h5.media-heading
+        = link_to like.bookmark.url, like.bookmark.url
+        = link_to 'Unlike', [like.bookmark, like], method: :delete, class: 'btn btn-default btn-xs'
+      %small
+        added
+        = time_ago_in_words(like.created_at)
+        ago
+      %hr
+.row.col-md-12
+  = link_to 'New Bookmark', new_bookmark_path, class: 'btn btn-default'

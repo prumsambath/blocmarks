@@ -1,8 +1,9 @@
 - @hashtags.each do |tag|
-  = link_to "##{tag.text}", tag
-  %ul
+  %h5
+    = link_to "##{tag.text}", tag
+  %hr
   - tag.bookmarks.each do |link|
-    %li 
-      = link_to link.url, link.url
-      = render partial: 'favorites/favorite', locals: { bookmark: link }
-    
+    = link_to link.url, link.url
+    = render partial: 'favorites/favorite', locals: { bookmark: link }
+    %hr
+
