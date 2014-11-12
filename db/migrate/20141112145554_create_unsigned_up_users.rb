@@ -3,7 +3,7 @@ class CreateUnsignedUpUsers < ActiveRecord::Migration
     create_table :unsigned_up_users do |t|
       t.string :name
       t.string :email
-      t.integer :email_received_count, default: 1
+      t.boolean :replied, default: false
 
       t.timestamps
     end

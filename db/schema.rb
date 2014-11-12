@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141112145554) do
   create_table "unsigned_up_users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.integer  "email_received_count", default: 1
+    t.boolean  "replied",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

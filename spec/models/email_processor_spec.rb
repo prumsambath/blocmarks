@@ -57,17 +57,23 @@ describe EmailProcessor do
 
   context "unregistered users" do
     describe "receives an incoming email" do
-     it "does not save url in the database" do
+      it "does not save url in the database" do
         expect {
           EmailProcessor.new(@email).process
         }.to_not change(Bookmark, :count)
       end
 
-     it "replies an email" do
-       expect {
-         EmailProcessor.new(@email).process
-       }.to change { UnsignedUpUserMailer.deliveries.count }.by(1)
-     end
+      it "replies an email" do
+        expect {
+          EmailProcessor.new(@email).process
+        }.to change { UnsignedUpUserMailer.deliveries.count }.by(1)
+      end
+
+      it "saves the unregistered user in the database" do
+        expect {
+          EmailProcessor.new(@email).process
+        }.to change(UnsignedUpUser, :count).by(1)
+      end
     end
   end
 end

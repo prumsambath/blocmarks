@@ -19,16 +19,15 @@ class EmailProcessor
         end
       end
     else
-      unsignedu_up_user = UnsignedUpUser.find(email: @email.from[:email])
-      if unsignedu_up_user
-        if unsignedu_up_user.email_received_count < 3
-          UnsignedupUserMailer.respond(@email).deliver
-          unsignedu_up_user.update_attribute(:email_received_count, unsigned_up_user.email_received_count + 1)
-        end
-      else
-        UnsignedUpUser.create(name: @email.from, email: @email.from[:email])
-      end
+      respond_email_once_to_unregistered_user
+    end
+  end
 
+  def respond_email_once_to_unregistered_user
+    unsigned_up_user = UnsignedUpUser.find_by(email: @email.from[:email])
+    unless unsigned_up_user
+      UnsignedUpUser.create(name: @email.from[:email], email: @email.from[:email], replied: true)
+      UnsignedUpUserMailer.response(@email).deliver
     end
   end
 
