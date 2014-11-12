@@ -18,6 +18,17 @@ class EmailProcessor
           user_bookmark.hashtags.create(text: text)
         end
       end
+    else
+      unsignedu_up_user = UnsignedUpUser.find(email: @email.from[:email])
+      if unsignedu_up_user
+        if unsignedu_up_user.email_received_count < 3
+          UnsignedupUserMailer.respond(@email).deliver
+          unsignedu_up_user.update_attribute(:email_received_count, unsigned_up_user.email_received_count + 1)
+        end
+      else
+        UnsignedUpUser.create(name: @email.from, email: @email.from[:email])
+      end
+
     end
   end
 

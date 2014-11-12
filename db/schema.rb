@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141111042608) do
+ActiveRecord::Schema.define(version: 20141112145554) do
 
   create_table "bookmarks", force: true do |t|
     t.string   "url"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 20141111042608) do
 
   create_table "hashtags", force: true do |t|
     t.string   "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "unsigned_up_users", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.integer  "email_received_count", default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end

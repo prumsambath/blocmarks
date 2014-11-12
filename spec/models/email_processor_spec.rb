@@ -62,6 +62,12 @@ describe EmailProcessor do
           EmailProcessor.new(@email).process
         }.to_not change(Bookmark, :count)
       end
+
+     it "replies an email" do
+       expect {
+         EmailProcessor.new(@email).process
+       }.to change { UnsignedUpUserMailer.deliveries.count }.by(1)
+     end
     end
   end
 end
