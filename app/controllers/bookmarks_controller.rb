@@ -12,8 +12,6 @@ class BookmarksController < ApplicationController
 
   def new
     @bookmark = Bookmark.new
-    UnsignedUpUserMailer.response(nil).deliver
-    render text: 'email sent'
   end
 
   def create
