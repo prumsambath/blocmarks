@@ -11,11 +11,11 @@ class EmailProcessor
     if user
       links = scan_url(@email.body)
       links.each do |link|
-        user.bookmarks.create(url: link)
+        user_bookmark = user.bookmarks.create(url: link)
 
         hashtags = scan_hashtag(@email.subject)
         hashtags.each do |text|
-          bookmark.hashtags.create(text: text)
+          user_bookmark.hashtags.create(text: text)
         end
       end
     end
