@@ -1,2 +1,3 @@
+$('#user-liked-bookmark-<%= @bookmark.id  %>').hide();
 $('#favorite-button-<%= @bookmark.id %> a').replaceWith(' <%=j render partial: 'favorites/favorite', locals: { bookmark: @bookmark } %>');
 $('#flash-message').html('<%=j render 'layouts/notification' %>').show();

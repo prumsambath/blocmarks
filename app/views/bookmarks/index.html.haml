@@ -1,9 +1,14 @@
 - @hashtags.each do |tag|
-  %h5
+  %h3.tag
     = link_to "##{tag.text}", tag
-  %hr
-  - tag.bookmarks.each do |link|
-    = link_to link.url, link.url
-    = render partial: 'favorites/favorite', locals: { bookmark: link }
-    %hr
+
+  .media.media-body
+    - tag.bookmarks.each do |link|
+      %h5.media-heading
+        = link_to link.url, link.url
+        = render partial: 'favorites/favorite', locals: { bookmark: link }
+        %br
+        %small
+          added #{time_ago_in_words(link.created_at)} ago
+        %hr
 
