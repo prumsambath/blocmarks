@@ -5,7 +5,7 @@ if Rails.env.development? || Rails.env.production?
     authentication: :plain,
     address: "smtp.mailgun.org",
     port: 587,
-    domain: ENV['mailgun_domain'],
+    # domain: ENV['mailgun_domain'],
     user_name: ENV['mailgun_username'],
     password: ENV['mailgun_password']
   }
