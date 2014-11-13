@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount_griddler
 
   resources :users, only: [:show]
+  resources :hashtags, only: [:show, :index]
   resources :bookmarks do
     resources :favorites, only: [:create, :destroy]
   end

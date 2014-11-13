@@ -1,6 +1,14 @@
-%h3
-  = @hashtag.text
-%ul
-- @hashtag.bookmarks.each do |bookmark|
-  %li
-  = link_to bookmark.url, bookmark.url
+%h3{class: 'btn btn-info'}
+  #{@hashtag.text}
+%p
+.row.col-md-12
+  - @hashtag.bookmarks.each do |bookmark|
+    .media.media-body
+      %h5{class: "media-heading", id: "user-bookmark-#{bookmark.id}"}
+        = link_to bookmark.url, bookmark.url
+        %br
+        %br
+        = render partial: 'bookmarks/display_hashtag', locals: { bookmark: bookmark }
+        %br
+        = render partial: 'bookmarks/status', locals: { bookmark: bookmark }
+        %hr

@@ -1,0 +1,13 @@
+%h2
+  Hashtags
+%hr
+%div
+  A hashtag is label that groups your bookmarks.
+%p
+%div.row
+  - @hashtags.each do |hashtag|
+    .col-md-2
+      %span
+        = link_to hashtag.text, hashtag, class: 'btn btn-info btn-small'
+      %p
+        = pluralize(hashtag.bookmarks.count, 'bookmark')

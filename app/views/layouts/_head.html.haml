@@ -3,12 +3,14 @@
     %li
       = link_to "Blocmarks", bookmarks_path
     %li
+      = link_to "Hashtags", hashtags_path
+    %li
       = link_to "About", "#"
 
   %ul.nav.navbar-nav.navbar-right
     - if current_user
       %li
-        = link_to "My Bookmarks", current_user
+        = link_to "My Blocmarks", current_user
       %li
         = link_to "Sign Out", destroy_user_session_path, method: :delete
     - else

@@ -1,26 +1,34 @@
-%h2
-  My Blocmarks
-.row.col-md-12
-  - @bookmarks.each do |bookmark|
-    .media.media-body
-      %h5{class: "media-heading", id: "user-bookmark-#{bookmark.id}"}
-        = link_to bookmark.url, bookmark.url
-        = link_to 'Remove', bookmark, method: :delete, class: 'btn btn-default btn-xs', remote: true
+.row
+  .tabbable.tabs-left
+    %ul.nav.nav-tabs
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#my-blocmarks"} My Blocmarks
+      %li
+        %a{"data-toggle" => "tab", :href => "#liked-blocmarks"} Liked Blocmarks
+    .tab-content
+      #my-blocmarks.tab-pane.active
         %br
-        %small
-          added #{time_ago_in_words(bookmark.created_at)} ago
-        %hr
-%h2
-  Liked Blocmarks
-.row.col-md-12
-  - @likes.each do |like|
-    .media.media-body
-      %h5{class: "media-heading", id: "user-liked-bookmark-#{like.bookmark.id}"}
-        = link_to like.bookmark.url, like.bookmark.url
-        = link_to 'Unlike', [like.bookmark, like], method: :delete, class: 'btn btn-default btn-xs', remote: true
+        - @bookmarks.each do |bookmark|
+          .media.media-body
+            %h5{class: "media-heading", id: "user-bookmark-#{bookmark.id}"}
+              = link_to bookmark.url, bookmark.url
+              = link_to 'Remove', bookmark, method: :delete, class: 'btn btn-default btn-xs', remote: true
+              %br
+              = render partial: 'bookmarks/display_hashtag', locals: { bookmark: bookmark }
+              %br
+              = render partial: 'bookmarks/status', locals: { bookmark: bookmark }
+              %hr
+      #liked-blocmarks.tab-pane
         %br
-        %small
-          added #{time_ago_in_words(like.created_at)}
-        %hr
-.row.col-md-12
+        - @likes.each do |like|
+          .media.media-body
+            %h5{class: "media-heading", id: "user-liked-bookmark-#{like.bookmark.id}"}
+              = link_to like.bookmark.url, like.bookmark.url
+              = link_to 'Unlike', [like.bookmark, like], method: :delete, class: 'btn btn-default btn-xs', remote: true
+              %br
+              = render partial: 'bookmarks/display_hashtag', locals: { bookmark: like.bookmark }
+              %br
+              = render partial: 'bookmarks/status', locals: { bookmark: like.bookmark }
+              %hr
+.row
   = link_to 'New Bookmark', new_bookmark_path, class: 'btn btn-default'
