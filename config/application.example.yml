@@ -1,2 +1,5 @@
 embedly_api_key:
 mailgun_sender:
+mailgun_domai:
+mailgun_username:
+mailgun_password:
