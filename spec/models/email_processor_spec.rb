@@ -12,6 +12,10 @@ describe EmailProcessor do
 
     describe "receives an incoming email" do
       context "email body has urls" do
+        before :each do
+          create(:user, email: @email.from[:email])
+        end
+
         it "saves the url in the database" do
           expect {
             EmailProcessor.new(@email).process
@@ -38,6 +42,7 @@ describe EmailProcessor do
       context "with hashtags" do
         it "save hashtags in the database" do
           email = build(:email, subject: "Bookmark #new")
+          create(:user, email: email.from[:email])
           expect {
             EmailProcessor.new(email).process
           }.to change(Hashtag, :count).by(1)

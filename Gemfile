@@ -17,13 +17,17 @@ group :test do
   gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'guard-rspec'
   gem 'spork-rails'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~>3.1.0'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
 end
 
 gem 'bootstrap-sass', '~>3.1.1'

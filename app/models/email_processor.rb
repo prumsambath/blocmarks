@@ -26,8 +26,8 @@ class EmailProcessor
   def respond_email_once_to_unregistered_user
     unsigned_up_user = UnsignedUpUser.find_by(email: @email.from[:email])
     unless unsigned_up_user
-      UnsignedUpUser.create(name: @email.from[:name], email: @email.from[:email])
-      UnsignedUpUserMailer.response(@email).deliver
+      user = UnsignedUpUser.create(name: @email.from[:name], email: @email.from[:email])
+      user.send_email
     end
   end
 

@@ -1,13 +1,15 @@
 class BookmarksController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @hashtags = Hashtag.all
     @bookmarks = Bookmark.includes(:hashtags).all
   end
 
   def show
-    bookmark = Bookmark.find(params[:id])
-    embedly_api = Embedly::API.new key: ENV['embedly_api_key'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
-    @preview_url = embedly_api.oembed(url: bookmark.url)
+    @bookmark = Bookmark.find(params[:id])
+    # embedly_api = Embedly::API.new key: ENV['embedly_api_key'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; my@email.com)'
+    # @preview_url = embedly_api.oembed(url: bookmark.url)
   end
 
   def new
@@ -17,8 +19,7 @@ class BookmarksController < ApplicationController
   def create
     bookmark = Bookmark.new(bookmark_params)
     user_bookmark = current_user.bookmarks.build(url: bookmark.url)
-    # TODO add a hashtag to the new bookmark
-    user_bookmark.hashtags.build(text: 'default')
+    find_or_initialize_default_hashtag(user_bookmark)
 
     if user_bookmark.save
       flash[:notice] = "Bookmark was successfully saved."
@@ -48,5 +49,10 @@ class BookmarksController < ApplicationController
 
   def bookmark_params
     params.require(:bookmark).permit(:url)
+  end
+
+  def find_or_initialize_default_hashtag(bookmark)
+    bookmark.hashtags.find_by(text: 'default') ||
+      bookmark.hashtags.build(text: 'default')
   end
 end

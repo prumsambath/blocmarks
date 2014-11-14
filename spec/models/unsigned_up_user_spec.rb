@@ -1,5 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe UnsignedUpUser, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe UnsignedUpUser do
+  describe "sends email to notify sign-up" do
+    let(:user) { create(:unsigned_up_user) }
+
+    it "delivers email to user" do
+      user.send_email
+      expect(last_email.to).to include(user.email)
+    end
+  end
 end

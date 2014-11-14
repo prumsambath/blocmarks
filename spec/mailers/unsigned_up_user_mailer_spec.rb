@@ -1,18 +1,14 @@
 require "rails_helper"
 
-RSpec.describe UnsignedUpUserMailer, :type => :mailer do
-  describe "response" do
-    let(:mail) { UnsignedUpUserMailer.response }
+describe UnsignedUpUserMailer do
+  describe ".response" do
+    let(:user) { create(:unsigned_up_user) }
+    let(:mail) { UnsignedUpUserMailer.response(user) }
 
-    it "renders the headers" do
-      expect(mail.subject).to eq("Response")
-      expect(mail.to).to eq(["to@example.org"])
-      expect(mail.from).to eq(["from@example.com"])
-    end
-
-    it "renders the body" do
-      expect(mail.body.encoded).to match("Hi")
+    it "sends notified email for sign-up" do
+      expect(mail.subject).to eq("Sign-up Required!")
+      expect(mail.to).to eq([user.email])
+      expect(mail.from).to eq([ENV['mailgun_sender']])
     end
   end
-
 end
