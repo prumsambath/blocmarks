@@ -7,14 +7,12 @@
     %li
       = link_to "About", "#"
 
-  %ul.nav.navbar-nav.navbar-right
+  .user-info.pull-right
     - if current_user
-      %li
-        = link_to "My Blocmarks", current_user
-      %li
-        = link_to "Sign Out", destroy_user_session_path, method: :delete
+      = link_to "My Blocmarks", current_user
+      = link_to((current_user.avatar? ? image_tag(current_user.avatar.tiny.url) : current_user.name), edit_user_registration_path)
+      = link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do
+        %span.glyphicon.glyphicon-log-out
     - else
-      %li
-        = link_to "Sign In", new_user_session_path
-      %li
-        = link_to "Sign Up", new_user_registration_path
+      = link_to "Sign In", new_user_session_path, class: 'btn btn-default btn-sm'
+      = link_to "Sign Up", new_user_registration_path, class: 'btn btn-default btn-sm'

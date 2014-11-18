@@ -1,7 +1,12 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) { |n| "john#{n}@example.com" }
+    name Faker::Name.name
+    email Faker::Internet.email
     password "helloworld"
+
+    factory :user_with_avatar do
+      avatar { File.new("#{Rails.root}/spec/factories/avatar.png") }
+    end
   end
 end
 

@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 describe BookmarksController do
+  let(:user) { create(:user) }
+
   shared_examples 'public access to bookmarks' do
     describe 'GET #index' do
       it "populates an array of all bookmarks" do
-        news_bookmark = create(:bookmark, url: "http://news.example.com")
-        blog_bookmark = create(:bookmark, url: "http://blog.example.com")
+        news_bookmark = create(:bookmark, url: "http://news.example.com", user: user)
+        blog_bookmark = create(:bookmark, url: "http://blog.example.com", user: user)
         get :index
         expect(assigns(:bookmarks)).to match_array([news_bookmark, blog_bookmark])
       end
@@ -18,13 +20,13 @@ describe BookmarksController do
 
     describe 'GET #show' do
       it "assigns the requested bookmark to @bookmark" do
-        bookmark = create(:bookmark)
+        bookmark = create(:bookmark, user: user)
         get :show, id: bookmark
         expect(assigns(:bookmark)).to eq(bookmark)
       end
 
       it "renders the :show template" do
-        bookmark = create(:bookmark)
+        bookmark = create(:bookmark, user: user)
         get :show, id: bookmark
         expect(response).to render_template(:show)
       end
@@ -54,7 +56,7 @@ describe BookmarksController do
 
         it "redirects to users#show" do
           post :create, bookmark: attributes_for(:bookmark)
-          expect(response).to redirect_to(user_path(@user))
+          expect(response).to redirect_to(user_path(user))
         end
       end
 
@@ -74,7 +76,7 @@ describe BookmarksController do
 
     describe "DELETE #destroy" do
       before :each do
-        @bookmark = create(:bookmark, user: @user)
+        @bookmark = create(:bookmark, user: user)
       end
 
       it "deletes the contact" do
@@ -85,17 +87,16 @@ describe BookmarksController do
 
       it "redirects to users#show" do
         delete :destroy, id: @bookmark
-        expect(response).to redirect_to(user_path(@user))
+        expect(response).to redirect_to(user_path(user))
       end
     end
   end
 
   describe "user access to bookmarks" do
     before :each do
-      @user = create(:user)
-      set_user_session(@user)
-      allow(request.env['warden']).to receive(:authenticate!) { @user }
-      allow(controller).to receive(:current_user) { @user }
+      set_user_session(user)
+      allow(request.env['warden']).to receive(:authenticate!) { user }
+      allow(controller).to receive(:current_user) { user }
     end
 
     it_behaves_like "public access to bookmarks"

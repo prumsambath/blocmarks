@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :bookmarks, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  mount_uploader :avatar, AvatarUploader
 
   def liked(bookmark)
     favorites.where(bookmark_id: bookmark.id).first

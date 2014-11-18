@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   mount_griddler
 
-  resources :users, only: [:show]
+  resources :users, only: [:show, :update, :destroy]
   resources :hashtags, only: [:show, :index]
   resources :bookmarks do
     resources :favorites, only: [:create, :destroy]

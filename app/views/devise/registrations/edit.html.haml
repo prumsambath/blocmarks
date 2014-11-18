@@ -1,31 +1,67 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .field
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password, autocomplete: "off"
-  .actions
-    = f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to "Back", :back
+.container
+  .row
+    .col-md-4.edit-user
+      %h2
+        Edit #{resource_name.to_s.humanize}
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        = devise_error_messages!
+
+        .form-group
+          = f.label :email
+          %br/
+          = f.email_field :email, autofocus: true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %div
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+        .form-group
+          = f.label :password
+          %br/
+          = f.password_field :password, autocomplete: "off"
+          %br/
+          %i (leave blank if you don't want to change it)
+
+        .form-group
+          = f.label :password_confirmation
+          %br/
+          = f.password_field :password_confirmation, autocomplete: "off"
+
+        .form-group
+          = f.label :current_password
+          %br/
+          = f.password_field :current_password, autocomplete: "off"
+          %br/
+          %i (we need your current password to confirm your changes)
+
+        .form-group
+          = f.submit "Update", class: 'btn btn-success'
+
+    .col-md-4.edit-user
+      %h2
+        Edit Personal Information
+      = form_for current_user do |f|
+        .form-group
+          = f.label :name
+          %br/
+          = f.text_field :name
+
+        .form-group
+          - if current_user.avatar?
+            %p Current avatar
+            = image_tag(current_user.avatar.profile.url)
+
+        .form-group
+          = f.label :avatar
+          %br/
+          = f.file_field :avatar
+          = f.hidden_field :avatar_cache
+
+        .form-group#personal-info
+          = f.submit 'Update', class: 'btn btn-success'
+
+  .row
+    .col-md-4
+      %p
+        = button_to "Delete My Account", registration_path(resource_name),
+          data: { confirm: "Are you sure?" }, method: :delete,
+          class: 'btn btn-danger'
