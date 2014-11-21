@@ -1,0 +1,9 @@
+class HashtagsController < ApplicationController
+  def show
+    @hashtag = Hashtag.includes(:bookmark).find(params[:id])
+  end
+
+  def index
+    @hashtags = Hashtag.all
+  end
+end

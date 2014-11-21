@@ -3,7 +3,7 @@
 %hr
 %p
 .media.media-body
-  - @bookmarks.each do |bookmark|
+  - @bookmarks.not_own_by(current_user).each do |bookmark|
     %h5.media-heading
       = link_to bookmark.url, bookmark.url
       = render partial: 'favorites/favorite', locals: { bookmark: bookmark }

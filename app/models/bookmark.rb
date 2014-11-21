@@ -4,4 +4,6 @@ class Bookmark < ActiveRecord::Base
   belongs_to :user
 
   validates :url, presence: true, uniqueness: { scope: :user_id }
+
+  scope :not_own_by, -> (user) { user ? where("user_id != ?", user.id) : all }
 end

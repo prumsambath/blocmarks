@@ -6,6 +6,7 @@
     .media.media-body
       %h5{class: "media-heading", id: "user-bookmark-#{bookmark.id}"}
         = link_to bookmark.url, bookmark.url
+        = render partial: 'favorites/favorite', locals: { bookmark: bookmark }
         %br
         %br
         = render partial: 'bookmarks/display_hashtag', locals: { bookmark: bookmark }

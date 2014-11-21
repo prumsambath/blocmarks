@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   def liked(bookmark)
     favorites.where(bookmark_id: bookmark.id).first
   end
+
+  def own?(bookmark)
+    bookmarks.exists?(bookmark)
+  end
 end
