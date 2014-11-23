@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    @bookmarks = @user.bookmarks
-    @likes = @user.favorites
-
-    # @hashtags = @bookmarks.hashtags # error
+    @bookmarks = @user.bookmarks.page(params[:user_blocmarks]).per(10)
+    @likes = @user.favorites.page(params[:liked_blocmarks]).per(10)
   end
 
   def update

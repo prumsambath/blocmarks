@@ -1,5 +1,5 @@
 .row
-  .col-md-8.tabbable.tabs-left
+  .col-md-8.tabbable.tabs-left#blocmark-tabs
     %ul.nav.nav-tabs
       %li.active
         %a{"data-toggle" => "tab", :href => "#my-blocmarks"} My Blocmarks
@@ -11,6 +11,7 @@
         - @bookmarks.each do |bookmark|
           .media.media-body
             = render partial: 'bookmarks/bookmark', locals: { bookmark: bookmark }
+        = paginate @bookmarks, param_name: :user_blocmarks, params: { tab: "my-blocmarks" }, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-small pagination-centered'
       #liked-blocmarks.tab-pane
         %br
         - @likes.each do |like|
@@ -23,5 +24,13 @@
               %br
               = render partial: 'bookmarks/status', locals: { bookmark: like.bookmark }
               %hr
+        = paginate @likes, param_name: :liked_blocmarks, params: { tab: "liked-blocmarks" }, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-small pagination-centered'
   .col-md-4
     = render 'bookmarks/new'
+
+- @tab_id = params[:tab] ? "#blocmark-tabs a[href=" + %Q(##{params[:tab]}) + "]" : "#blocmark-tabs a:first"
+
+:javascript
+  $(function () {
+    $('#{@tab_id}').tab('show');
+  })

@@ -12,6 +12,7 @@
           %br
           = render partial: 'bookmarks/status', locals: { bookmark: bookmark }
           %hr
+      = paginate @bookmarks
   .col-md-4
     = render 'bookmarks/new'
 

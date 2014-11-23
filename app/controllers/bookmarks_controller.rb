@@ -4,9 +4,9 @@ class BookmarksController < ApplicationController
   def index
     @hashtags = Hashtag.all
     if params[:hashtag]
-      @bookmarks = Bookmark.tagged_with(params[:hashtag])
+      @bookmarks = Bookmark.tagged_with(params[:hashtag]).page(params[:page]).per(10)
     else
-      @bookmarks = Bookmark.includes(:hashtags).all
+      @bookmarks = Bookmark.includes(:hashtags).all.page(params[:page]).per(10)
     end
   end
 
