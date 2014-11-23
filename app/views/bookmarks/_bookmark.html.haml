@@ -2,7 +2,7 @@
   = link_to bookmark.url, bookmark.url
   = link_to 'Remove', bookmark, method: :delete, class: 'btn btn-default btn-xs', remote: true
   %br
-  = render partial: 'bookmarks/display_hashtag', locals: { bookmark: bookmark }
+  =raw hashtag_links bookmark.all_hashtags
   %br
   = render partial: 'bookmarks/status', locals: { bookmark: bookmark }
   %hr

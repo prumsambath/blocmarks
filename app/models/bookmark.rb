@@ -5,6 +5,7 @@ class Bookmark < ActiveRecord::Base
 
   validates :url, presence: true, uniqueness: { scope: :user_id }
 
+  default_scope -> { order('created_at DESC') }
   scope :not_own_by, -> (user) { user ? where("user_id != ?", user.id) : all }
 
   def all_hashtags=(text)
@@ -15,5 +16,9 @@ class Bookmark < ActiveRecord::Base
 
   def all_hashtags
     self.hashtags.map(&:text).join(" ")
+  end
+
+  def self.tagged_with(text)
+    Hashtag.find_by(text: text).bookmarks
   end
 end

@@ -19,7 +19,7 @@
               = link_to like.bookmark.url, like.bookmark.url
               = link_to 'Unlike', [like.bookmark, like], method: :delete, class: 'btn btn-default btn-xs', remote: true
               %br
-              = render partial: 'bookmarks/display_hashtag', locals: { bookmark: like.bookmark }
+              =raw hashtag_links like.bookmark.all_hashtags
               %br
               = render partial: 'bookmarks/status', locals: { bookmark: like.bookmark }
               %hr

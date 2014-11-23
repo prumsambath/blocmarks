@@ -3,7 +3,11 @@ class BookmarksController < ApplicationController
 
   def index
     @hashtags = Hashtag.all
-    @bookmarks = Bookmark.includes(:hashtags).all
+    if params[:hashtag]
+      @bookmarks = Bookmark.tagged_with(params[:hashtag])
+    else
+      @bookmarks = Bookmark.includes(:hashtags).all
+    end
   end
 
   def show
