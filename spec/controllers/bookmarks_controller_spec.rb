@@ -34,18 +34,6 @@ describe BookmarksController do
   end
 
   shared_examples 'full access to bookmarks' do
-    describe 'GET #new' do
-      it "assigns a new Bookmark to @bookmark" do
-        get :new
-        expect(assigns(:bookmark)).to be_a_new(Bookmark)
-      end
-
-      it "renders the :new tempalte" do
-        get :new
-        expect(response).to render_template(:new)
-      end
-    end
-
     describe 'POST #create' do
       context "with valid attributes" do
         it "saves the new bookmark in the database" do
@@ -65,11 +53,6 @@ describe BookmarksController do
           expect {
             post :create, bookmark: attributes_for(:invalid_bookmark)
           }.to_not change(Bookmark, :count)
-        end
-
-        it "re-render the :new template" do
-          post :create, bookmark: attributes_for(:invalid_bookmark)
-          expect(response).to render_template(:new)
         end
       end
     end
@@ -110,13 +93,6 @@ describe BookmarksController do
     end
 
     it_behaves_like "public access to bookmarks"
-
-    describe 'GET #new' do
-      it "requires login" do
-        get :new
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
 
     describe "POST #create" do
       it "requires login" do

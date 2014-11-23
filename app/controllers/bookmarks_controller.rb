@@ -12,21 +12,22 @@ class BookmarksController < ApplicationController
     # @preview_url = embedly_api.oembed(url: bookmark.url)
   end
 
-  def new
-    @bookmark = Bookmark.new
-  end
-
   def create
-    bookmark = Bookmark.new(bookmark_params)
-    user_bookmark = current_user.bookmarks.build(url: bookmark.url)
-    find_or_initialize_default_hashtag(user_bookmark)
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.user_id = current_user.id
 
-    if user_bookmark.save
-      flash[:notice] = "Bookmark was successfully saved."
-      redirect_to current_user
+    if @bookmark.save
+      respond_to do |format|
+        message = "'#{@bookmark.url}' was successfully saved."
+        format.html do
+          flash[:notice] = message
+          redirect_to current_user
+        end
+        format.js { flash.now[:notice] = message }
+      end
     else
       flash[:error] = "Error saving bookmark. Please try again."
-      render :new
+      redirect_to current_user
     end
   end
 
@@ -48,11 +49,6 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
-    params.require(:bookmark).permit(:url)
-  end
-
-  def find_or_initialize_default_hashtag(bookmark)
-    bookmark.hashtags.find_by(text: 'default') ||
-      bookmark.hashtags.build(text: 'default')
+    params.require(:bookmark).permit(:url, :all_hashtags)
   end
 end

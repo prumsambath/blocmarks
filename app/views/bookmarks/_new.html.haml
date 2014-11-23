@@ -1,0 +1,13 @@
+= form_for Bookmark.new, remote: true do |f|
+  .form-group
+    = f.label :url, 'Favorite link', autofocus: true
+    %br
+    = f.text_field :url, placeholder: 'Link address', class: 'form-control'
+
+  .form-group
+    = f.label :hashtag
+    %br
+    = f.text_field :all_hashtags, placeholder: 'Tags separated with space', class: 'form-control'
+
+  .form-group
+    = f.submit 'Add Bookmark', class: 'btn btn-success'

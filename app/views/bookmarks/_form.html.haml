@@ -1,0 +1,16 @@
+= form_for bookmark do |f|
+  .row
+    .col-md-6
+      .from-group
+        = f.label :url, 'Favorite Link'
+        %br/
+        = f.text_field :url, id: 'input'
+
+      .form-group
+        = f.fields_for :hashtag do |hashtag_form|
+          = hashtag_form.label :hashtag
+          %br/
+          = hashtag_form.text_field :hashtag, id: 'input'
+
+      .form-group
+        = f.submit 'Add Bookmark', class: 'btn btn-success'

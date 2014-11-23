@@ -1,0 +1,9 @@
+%h5{class: "media-heading", id: "user-bookmark-#{bookmark.id}"}
+  = link_to bookmark.url, bookmark.url
+  = link_to 'Remove', bookmark, method: :delete, class: 'btn btn-default btn-xs', remote: true
+  %br
+  = render partial: 'bookmarks/display_hashtag', locals: { bookmark: bookmark }
+  %br
+  = render partial: 'bookmarks/status', locals: { bookmark: bookmark }
+  %hr
+

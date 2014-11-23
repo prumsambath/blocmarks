@@ -1,0 +1,5 @@
+var new_bookmark = $('<%=j render @bookmark %>').hide();
+$('#my-blocmarks').prepend(new_bookmark);
+$('#user-bookmark-<%= @bookmark.id %>').fadeIn('slow');
+$('#new_bookmark')[0].reset();
+$('#flash-message').html('<%=j render 'layouts/notification' %>').show();
